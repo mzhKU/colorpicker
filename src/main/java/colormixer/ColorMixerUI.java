@@ -37,6 +37,7 @@ public class ColorMixerUI extends GridPane {
     }
 
     private void initializeSelf() {
+        // Stylesheet needs to be in 'resources' directory
         // String stylesheet = getClass().getResource("style.css").toExternalForm();
         // getStylesheets().add(stylesheet);
     }
