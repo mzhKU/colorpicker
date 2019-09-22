@@ -23,6 +23,8 @@ public class ColorMixerUI extends GridPane {
     private Label greenValue;
 
     private TextField redTextValue;
+    private TextField greenTextValue;
+    private TextField blueTextValue;
 
     private Rectangle display;
 
@@ -54,6 +56,8 @@ public class ColorMixerUI extends GridPane {
         display = new Rectangle();
 
         redTextValue = new TextField("0");
+        greenTextValue = new TextField("0");
+        blueTextValue = new TextField("0");
     }
 
     private void layoutControls() {
@@ -69,9 +73,9 @@ public class ColorMixerUI extends GridPane {
 
         getColumnConstraints().addAll(sliderColumn, valueColumn);
 
-        addRow(0, redSlider  , redValue,  redTextValue);
-        addRow(1, greenSlider, greenValue);
-        addRow(2, blueSlider , blueValue);
+        addRow(0, redSlider  , redValue,   redTextValue);
+        addRow(1, greenSlider, greenValue, greenTextValue);
+        addRow(2, blueSlider , blueValue,  blueTextValue);
 
         add(display, 0, 3, 2, 1);
 
@@ -91,17 +95,15 @@ public class ColorMixerUI extends GridPane {
 
         greenSlider.valueProperty().bindBidirectional(model.greenProperty());
         greenValue.textProperty().bind(model.greenProperty().asString());
+        greenTextValue.textProperty().bindBidirectional(model.greenProperty(), new NumberStringConverter());
 
         blueSlider.valueProperty().bindBidirectional(model.blueProperty());
         blueValue.textProperty().bind(model.blueProperty().asString());
+        blueTextValue.textProperty().bindBidirectional(model.blueProperty(), new NumberStringConverter());
 
         display.fillProperty().bind(model.colorProperty());
 
         display.widthProperty().bind(widthProperty().subtract(20));
-        display.heightProperty()
-               .bind(heightProperty().subtract(redSlider.heightProperty())
-                                     .subtract(greenSlider.heightProperty())
-                                     .subtract(blueSlider.heightProperty())
-                                     .subtract(50));
+        display.heightProperty().setValue(200);
     }
 }
