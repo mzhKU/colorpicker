@@ -3,13 +3,12 @@ package colormixerswing;
 import javax.swing.*;
 import java.awt.*;
 
-import static javax.swing.SwingUtilities.invokeLater;
-
 public class ColorMixerSwing extends JFrame {
 
     public ColorMixerSwing() { initUI(); }
 
     private void initUI() {
+        /*
         var quitButton = new JButton("Quit");
         var sliderR    = new JSlider(JSlider.HORIZONTAL, 0, 255, 0);
         var sliderG    = new JSlider(JSlider.HORIZONTAL, 0, 255, 0);
@@ -26,6 +25,8 @@ public class ColorMixerSwing extends JFrame {
         setSize(300, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+         */
     }
 
     private void createLayout(JComponent... arg) {
@@ -50,14 +51,6 @@ public class ColorMixerSwing extends JFrame {
                 .addComponent(arg[3])
                 .addComponent(arg[4])
         );
-    }
-
-    public static void main(String[] args) {
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
-        invokeLater(() -> {
-            ColorMixerSwing colorMixerSwing = new ColorMixerSwing();
-            colorMixerSwing.setVisible(true);
-        });
     }
 
 }

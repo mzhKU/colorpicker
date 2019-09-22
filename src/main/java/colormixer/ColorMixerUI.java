@@ -33,8 +33,8 @@ public class ColorMixerUI extends GridPane {
     }
 
     private void initializeSelf() {
-        String stylesheet = getClass().getResource("style.css").toExternalForm();
-        getStylesheets().add(stylesheet);
+        // String stylesheet = getClass().getResource("style.css").toExternalForm();
+        // getStylesheets().add(stylesheet);
     }
 
     private void initializeControls() {
