@@ -4,10 +4,12 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.shape.Rectangle;
+import javafx.util.converter.NumberStringConverter;
 
 public class ColorMixerUI extends GridPane {
     private final ColorMixerPM model;
@@ -19,6 +21,8 @@ public class ColorMixerUI extends GridPane {
     private Label redValue;
     private Label blueValue;
     private Label greenValue;
+
+    private TextField redTextValue;
 
     private Rectangle display;
 
@@ -47,6 +51,8 @@ public class ColorMixerUI extends GridPane {
         blueValue  = new Label();
 
         display = new Rectangle();
+
+        redTextValue = new TextField("0");
     }
 
     private void layoutControls() {
@@ -62,7 +68,7 @@ public class ColorMixerUI extends GridPane {
 
         getColumnConstraints().addAll(sliderColumn, valueColumn);
 
-        addRow(0, redSlider  , redValue);
+        addRow(0, redSlider  , redValue,  redTextValue);
         addRow(1, greenSlider, greenValue);
         addRow(2, blueSlider , blueValue);
 
@@ -80,6 +86,7 @@ public class ColorMixerUI extends GridPane {
     private void setupBindings() {
         redSlider.valueProperty().bindBidirectional(model.redProperty());
         redValue.textProperty().bind(model.redProperty().asString());
+        redTextValue.textProperty().bindBidirectional(model.redProperty(), new NumberStringConverter());
 
         greenSlider.valueProperty().bindBidirectional(model.greenProperty());
         greenValue.textProperty().bind(model.greenProperty().asString());
