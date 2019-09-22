@@ -15,9 +15,12 @@ public class ColorMixerSwing extends JFrame {
         var sliderG    = new JSlider(JSlider.HORIZONTAL, 0, 255, 0);
         var sliderB    = new JSlider(JSlider.HORIZONTAL, 0, 255, 0);
 
+        Rectangle box = new Rectangle();
+        box.setSize(200, 200);
+
         quitButton.addActionListener((event) -> System.exit(0));
 
-        createLayout(sliderR, sliderG, sliderB, quitButton);
+        createLayout(sliderR, sliderG, sliderB, box, quitButton);
 
         setTitle("Color Mixer");
         setSize(300, 200);
@@ -38,12 +41,14 @@ public class ColorMixerSwing extends JFrame {
                 .addComponent(arg[1])
                 .addComponent(arg[2])
                 .addComponent(arg[3])
+                .addComponent(arg[4])
         );
         gl.setVerticalGroup(gl.createSequentialGroup()
                 .addComponent(arg[0])
                 .addComponent(arg[1])
                 .addComponent(arg[2])
                 .addComponent(arg[3])
+                .addComponent(arg[4])
         );
     }
 
