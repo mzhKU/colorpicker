@@ -1,10 +1,10 @@
 package colormixer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -13,6 +13,7 @@ import javafx.util.converter.NumberStringConverter;
 
 public class ColorMixerUI extends GridPane {
     private final ColorMixerPM model;
+    private final ToggleGroup group = new ToggleGroup();
 
     private Slider redSlider;
     private Slider greenSlider;
@@ -27,6 +28,10 @@ public class ColorMixerUI extends GridPane {
     private TextField blueTextValue;
 
     private Rectangle display;
+
+    private RadioButton redRadio;
+    private RadioButton blueRadio;
+    private RadioButton greenRadio;
 
     public ColorMixerUI(ColorMixerPM model) {
         this.model = model;
@@ -58,9 +63,26 @@ public class ColorMixerUI extends GridPane {
         redTextValue = new TextField("0");
         greenTextValue = new TextField("0");
         blueTextValue = new TextField("0");
+
+        redRadio = new RadioButton("Red");
+        redRadio.setUserData("red");
+        redRadio.setSelected(true);
+
+        blueRadio = new RadioButton("Blue");
+        blueRadio.setUserData("blue");
+        blueRadio.setSelected(false);
+
+        greenRadio = new RadioButton("Green");
+        greenRadio.setUserData("green");
+        greenRadio.setSelected(false);
+
+        redRadio.setToggleGroup(group);
+        blueRadio.setToggleGroup(group);
+        greenRadio.setToggleGroup(group);
     }
 
     private void layoutControls() {
+        setPrefHeight(400);
         setPadding(new Insets(10));
         setHgap(10);
         setVgap(10);
@@ -73,19 +95,38 @@ public class ColorMixerUI extends GridPane {
 
         getColumnConstraints().addAll(sliderColumn, valueColumn);
 
-        addRow(0, redSlider  , redValue,   redTextValue);
-        addRow(1, greenSlider, greenValue, greenTextValue);
-        addRow(2, blueSlider , blueValue,  blueTextValue);
+        addRow(0, redSlider  , redValue,   redTextValue,   redRadio);
+        addRow(1, greenSlider, greenValue, greenTextValue, greenRadio);
+        addRow(2, blueSlider , blueValue,  blueTextValue,  blueRadio);
 
         add(display, 0, 3, 2, 1);
-
-        setPrefHeight(getPrefHeight() + 200);
     }
 
     private void setupEventHandlers() {
     }
 
     private void setupValueChangedListeners() {
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                System.out.println(group.getSelectedToggle().getUserData().toString());
+                if("red".equals(group.getSelectedToggle().getUserData().toString())) {
+                    model.setRed(255);
+                    model.setGreen(0);
+                    model.setBlue(0);
+                }
+                if("blue".equals(group.getSelectedToggle().getUserData().toString())) {
+                    model.setRed(0);
+                    model.setGreen(0);
+                    model.setBlue(255);
+                }
+                if("green".equals(group.getSelectedToggle().getUserData().toString())) {
+                    model.setRed(0);
+                    model.setGreen(255);
+                    model.setBlue(0);
+                }
+            }
+        });
     }
 
     private void setupBindings() {
