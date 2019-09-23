@@ -23,4 +23,10 @@ These integers of the tuple are implemented as JavaFX *IntegerProperty*.
 The slider and input field properties are bound bidirectionally to the
 corresponding property on the model to keep them in sync with the model.
 
+## To do
+How should the radio buttons behave when a value that is not a strict
+basic color is set using the sliders or input fields? Out of a group
+at least one radio button has to be selected, but this is consistently
+possible if values other than 255 can be set.
+
 ![uml](./ColorPickerUML.png)

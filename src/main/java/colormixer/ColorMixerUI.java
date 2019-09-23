@@ -1,7 +1,5 @@
 package colormixer;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -106,25 +104,22 @@ public class ColorMixerUI extends GridPane {
     }
 
     private void setupValueChangedListeners() {
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            @Override
-            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                System.out.println(group.getSelectedToggle().getUserData().toString());
-                if("red".equals(group.getSelectedToggle().getUserData().toString())) {
-                    model.setRed(255);
-                    model.setGreen(0);
-                    model.setBlue(0);
-                }
-                if("blue".equals(group.getSelectedToggle().getUserData().toString())) {
-                    model.setRed(0);
-                    model.setGreen(0);
-                    model.setBlue(255);
-                }
-                if("green".equals(group.getSelectedToggle().getUserData().toString())) {
-                    model.setRed(0);
-                    model.setGreen(255);
-                    model.setBlue(0);
-                }
+        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(group.getSelectedToggle().getUserData().toString());
+            if("red".equals(group.getSelectedToggle().getUserData().toString())) {
+                model.setRed(255);
+                model.setGreen(0);
+                model.setBlue(0);
+            }
+            if("blue".equals(group.getSelectedToggle().getUserData().toString())) {
+                model.setRed(0);
+                model.setGreen(0);
+                model.setBlue(255);
+            }
+            if("green".equals(group.getSelectedToggle().getUserData().toString())) {
+                model.setRed(0);
+                model.setGreen(255);
+                model.setBlue(0);
             }
         });
     }
